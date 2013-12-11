@@ -48,8 +48,9 @@ public class LoggingOutputStream extends OutputStream {
     @Override
     public void close() throws IOException {
         mOutputStream.close();
-        if (isLoggingEnabled())
-            mLoggingStream.close();
+        if (isLoggingEnabled()) {
+            mLoggingStream.write("\n".getBytes());
+        }
     }
 
     @Override
