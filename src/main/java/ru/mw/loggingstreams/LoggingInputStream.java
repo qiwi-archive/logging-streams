@@ -59,7 +59,8 @@ public class LoggingInputStream extends InputStream {
     @Override
     public void close() throws IOException {
         mInputStream.close();
-        mLoggerStream.close();
+        if (isLoggingEnabled())
+            mLoggerStream.close();
     }
 
     @Override
