@@ -12,31 +12,27 @@ public class LoggingInputStream extends InputStream {
     private final InputStream mInputStream;
     private final OutputStream mLoggerStream;
 
+    /**
+     * Class that provides on-fly logging for the data that goes through the InputStream
+     * @param inputStream wrapped stream
+     * @param loggerStream stream for logging
+     */
     public LoggingInputStream(InputStream inputStream, OutputStream loggerStream) {
         mInputStream = inputStream;
         mLoggerStream = loggerStream;
     }
 
-    public LoggingInputStream(InputStream inputStream) {
-        this(inputStream, null);
-    }
-
-    private boolean isLoggingEnabled() {
-        return mLoggerStream != null;
-    }
-
     @Override
     public int read() throws IOException {
         int result = mInputStream.read();
-        if (isLoggingEnabled())
-            mLoggerStream.write(result);
+        mLoggerStream.write(result);
         return result;
     }
 
     @Override
     public int read(byte[] bytes) throws IOException {
         int result = mInputStream.read(bytes);
-        if (result > 0 && isLoggingEnabled())
+        if (result > 0)
             mLoggerStream.write(bytes, 0, result);
         return result;
     }
@@ -44,7 +40,7 @@ public class LoggingInputStream extends InputStream {
     @Override
     public int read(byte[] bytes, int i, int i2) throws IOException {
         int result = mInputStream.read(bytes, i, i2);
-        if (result > 0 && isLoggingEnabled())
+        if (result > 0)
             mLoggerStream.write(bytes, i, i2);
         return result;
     }
@@ -59,9 +55,7 @@ public class LoggingInputStream extends InputStream {
     @Override
     public void close() throws IOException {
         mInputStream.close();
-        if (isLoggingEnabled()) {
-            mLoggerStream.write("\n".getBytes());
-        }
+        mLoggerStream.write("\n".getBytes());
     }
 
     @Override

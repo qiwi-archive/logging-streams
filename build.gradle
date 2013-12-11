@@ -9,7 +9,7 @@ repositories {
 
 install {
     repositories.mavenInstaller {
-        pom.version = '0.3.4'
+        pom.version = '0.4'
         pom.artifactId = 'logging-streams'
         pom.groupId = 'ru.mw'
         pom.whenConfigured { generatedPom ->
