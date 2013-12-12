@@ -9,6 +9,7 @@ import java.io.OutputStream;
 public class LoggingOutputStream extends OutputStream {
 
     private final OutputStream mOutputStream;
+
     private final OutputStream mLoggingStream;
 
     /**
