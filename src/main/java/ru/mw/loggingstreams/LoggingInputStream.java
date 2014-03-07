@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.StringWriter;
+import java.util.Arrays;
 
 /**
  * Created by nixan on 11.12.13.
@@ -41,7 +42,7 @@ public class LoggingInputStream extends InputStream {
     public int read(byte[] bytes) throws IOException {
         int result = mInputStream.read(bytes);
         if (result > 0) {
-            mStringWriter.write(new String(bytes), 0, result);
+            mStringWriter.write(new String(Arrays.copyOfRange(bytes, 0, result)));
         }
         return result;
     }
@@ -50,7 +51,7 @@ public class LoggingInputStream extends InputStream {
     public int read(byte[] bytes, int i, int i2) throws IOException {
         int result = mInputStream.read(bytes, i, i2);
         if (result > 0) {
-            mStringWriter.write(new String(bytes), i, result);
+            mStringWriter.write(new String(Arrays.copyOfRange(bytes, i, i + result)));
         }
         return result;
     }
