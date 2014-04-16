@@ -1,2 +1,4 @@
 apply plugin: 'java'
 sourceCompatibility = 1.5
+
+jar.baseName = 'loggingstreams'
